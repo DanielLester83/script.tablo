@@ -1,7 +1,7 @@
 import threading
-import Queue
+import queue
 import xbmc
-import util
+from . import util
 
 
 class Task:
@@ -23,7 +23,7 @@ class Task:
 
 class BackgroundThreader:
     def __init__(self):
-        self._queue = Queue.LifoQueue()
+        self._queue = queue.LifoQueue()
         self._thread = None
         self._abort = False
         self._task = None
@@ -51,10 +51,10 @@ class BackgroundThreader:
                 self._runTask(self._task)
                 self._queue.task_done()
                 self._task = None
-        except Queue.Empty:
+        except queue.Empty:
             util.DEBUG_LOG('Background queue: Empty')
 
-        self._queue = Queue.LifoQueue()
+        self._queue = queue.LifoQueue()
 
         util.DEBUG_LOG('Background queue: Finished')
 

@@ -357,7 +357,7 @@ class RecordingHandler(PlayerHandler):
         self._waiting.clear()
         try:
             cacheCount = 0
-            while (self.player.isPlayingVideo() or self.seeking) and not xbmc.abortRequested:
+            while (self.player.isPlayingVideo() or self.seeking) and not False:
                 if xbmc.getCondVisibility('Player.Seeking'):
                     self.onPlayBackSeek(self.position, 0)
                 elif self.player.isPlayingVideo():
@@ -500,7 +500,7 @@ class LiveRecordingHandler(RecordingHandler):
     def _waitLive(self):
         self._waiting.clear()
         try:
-            while self.player.isPlayingVideo() and not xbmc.abortRequested:
+            while self.player.isPlayingVideo() and not False:
                 self.position = self.player.getTime()
                 xbmc.sleep(100)
         finally:
@@ -605,7 +605,7 @@ class LiveTVHandler(PlayerHandler):
     def wait(self):
         self._waiting.clear()
         try:
-            while self.player.isPlayingVideo() and not xbmc.abortRequested:
+            while self.player.isPlayingVideo() and not False:
                 xbmc.sleep(100)
         finally:
             self._waiting.set()
@@ -714,14 +714,14 @@ class TabloPlayer(xbmc.Player):
 
     def _monitor(self):
 
-        while not xbmc.abortRequested:
+        while not False:
             # Monitor loop
             if self.isPlayingVideo():
                 util.DEBUG_LOG('Player: Monitoring')
 
             hasFullScreened = False
 
-            while self.isPlayingVideo() and not xbmc.abortRequested:
+            while self.isPlayingVideo() and not False:
                 xbmc.sleep(100)
                 if xbmc.getCondVisibility('VideoPlayer.IsFullscreen'):
                     if not hasFullScreened:
@@ -738,7 +738,7 @@ class TabloPlayer(xbmc.Player):
             if not self.isPlayingVideo():
                 util.DEBUG_LOG('Player: Idling...')
 
-            while not self.isPlayingVideo() and not xbmc.abortRequested:
+            while not self.isPlayingVideo() and not False:
                 xbmc.sleep(100)
 
 PLAYER = TabloPlayer().init()

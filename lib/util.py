@@ -11,14 +11,15 @@ import datetime
 import xbmc
 import xbmcgui
 import xbmcaddon
+import xbmcvfs
 
-import verlib
+from . import verlib
 
 DEBUG = True
 
 ADDON = xbmcaddon.Addon()
 
-PROFILE = xbmc.translatePath(ADDON.getAddonInfo('profile')).decode('utf-8')
+PROFILE = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
 
 T = ADDON.getLocalizedString
 
@@ -70,7 +71,7 @@ def DEBUG_LOG(msg):
 
 def ERROR(txt='', hide_tb=False, notify=False):
     if isinstance(txt, str):
-        txt = txt.decode("utf-8")
+        txt = txt
     short = str(sys.exc_info()[1])
     if hide_tb:
         xbmc.log('script.tablo: ERROR: {0} - {1}'.format(txt, short), xbmc.LOGERROR)
@@ -143,7 +144,7 @@ def getGlobalProperty(key):
 
 def showNotification(message, time_ms=3000, icon_path=None, header=ADDON.getAddonInfo('name')):
     try:
-        icon_path = icon_path or xbmc.translatePath(ADDON.getAddonInfo('icon')).decode('utf-8')
+        icon_path = icon_path or xbmcvfs.translatePath(ADDON.getAddonInfo('icon'))
         xbmc.executebuiltin('Notification({0},{1},{2},{3})'.format(header, message, time_ms, icon_path))
     except RuntimeError:  # Happens when disabling the addon
         LOG(message)
@@ -414,7 +415,7 @@ class Cron(threading.Thread):
             if self.force.isSet():
                 self.force.clear()
                 return True
-            if xbmc.abortRequested or self.stopped.isSet():
+            if self.stopped.isSet():
                 return False
         return True
 

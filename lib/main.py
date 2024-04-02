@@ -1,7 +1,7 @@
-import tablo
-import windows
-import util
-import backgroundthread
+from . import tablo
+from . import windows
+from . import util
+from . import backgroundthread
 
 
 def start():
