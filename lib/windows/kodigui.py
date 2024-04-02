@@ -152,7 +152,8 @@ class ManagedListItem(object):
     _properties = None
 
     def __init__(self, label='', label2='', iconImage='', thumbnailImage='', path='', data_source=None):
-        self._listItem = xbmcgui.ListItem(label, label2, iconImage, thumbnailImage, path)
+        self._listItem = xbmcgui.ListItem(label, label2, path)
+        self._listItem.setArt({ 'icon': iconImage, 'thumb' : thumbnailImage })
         self.dataSource = data_source
         self.properties = {}
         self.label = label

@@ -1,17 +1,17 @@
 import xbmc
 import xbmcgui
-import kodigui
+from . import kodigui
 from lib import util
 
-import device
-import livetv
-import recordings
-import message
-import guide
-import scheduled
+from . import device
+from . import livetv
+from . import recordings
+from . import message
+from . import guide
+from . import scheduled
 
-from background import BackgroundWindow
-from connect import ConnectWindow
+from .background import BackgroundWindow
+from .connect import ConnectWindow
 
 from lib import tablo
 

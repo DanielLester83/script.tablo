@@ -2,10 +2,10 @@ import os
 import time
 import xbmc
 import xbmcgui
-import kodigui
-import actiondialog
-import skin
-import base
+from . import kodigui
+from . import actiondialog
+from . import skin
+from . import base
 from lib import util
 
 from lib import tablo

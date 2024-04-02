@@ -1,9 +1,9 @@
 import xbmc
 import xbmcgui
-import kodigui
-import base
-import message
-import actiondialog
+from . import kodigui
+from . import base
+from . import message
+from . import actiondialog
 import time
 import threading
 

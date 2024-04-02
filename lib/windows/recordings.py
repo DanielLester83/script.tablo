@@ -1,9 +1,9 @@
 import time
 import xbmc
 import xbmcgui
-import kodigui
-import base
-import actiondialog
+from . import kodigui
+from . import base
+from . import actiondialog
 
 from lib import util
 from lib import backgroundthread
@@ -11,7 +11,7 @@ from lib import player
 from lib import tablo
 from lib.util import T
 
-import guide
+from . import guide
 
 
 RECORDING_FAILED_MESSAGES = {

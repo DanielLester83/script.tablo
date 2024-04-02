@@ -1,6 +1,6 @@
 import xbmc
-import base
-import guide
+from . import base
+from . import guide
 from lib import backgroundthread
 from lib.util import T
 

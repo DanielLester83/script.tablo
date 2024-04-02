@@ -1,5 +1,5 @@
 import xbmcgui
-import kodigui
+from . import kodigui
 
 from lib import tablo
 from lib import util

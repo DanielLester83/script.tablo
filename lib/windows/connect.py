@@ -2,7 +2,7 @@ import os
 import threading
 import xbmc
 import xbmcgui
-import kodigui
+from . import kodigui
 from lib import tablo
 from lib import util
 from lib.util import T

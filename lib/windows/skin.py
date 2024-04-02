@@ -35,7 +35,7 @@ FONT_TRANSLATIONS = {
 FONTS = ('font10', 'font13', 'font30')
 
 VERSION = util.ADDON.getAddonInfo('version')
-VERSION_FILE = os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('profile')).decode('utf-8'), 'skin', 'version')
+VERSION_FILE = os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('profile')), 'skin', 'version')
 
 
 def skinningAPIisOld():
@@ -79,13 +79,13 @@ def copyTree(source, target):
 
 
 def currentKodiSkin():
-    skinPath = xbmc.translatePath('special://skin').rstrip('/\\')
+    skinPath = xbmcvfs.translatePath('special://skin').rstrip('/\\')
     return os.path.basename(skinPath)
 
 
 def setupDynamicSkin():
     import shutil
-    targetDir = os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('profile')).decode('utf-8'), 'skin', 'resources')
+    targetDir = os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('profile')), 'skin', 'resources')
     target = os.path.join(targetDir, 'skins')
 
     if os.path.exists(target):
@@ -93,13 +93,13 @@ def setupDynamicSkin():
     if not os.path.exists(targetDir):
         os.makedirs(targetDir)
 
-    source = os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('path')).decode('utf-8'), 'resources', 'skins')
+    source = os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('path')), 'resources', 'skins')
     copyTree(source, target)
 
 
 def customizeSkinXML(skin, xml):
-    source = os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('path')).decode('utf-8'), 'resources', 'skins', 'Main', '720p', xml)
-    target = os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('profile')).decode('utf-8'), 'skin', 'resources', 'skins', 'Main', '720p', xml)
+    source = os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('path')), 'resources', 'skins', 'Main', '720p', xml)
+    target = os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('profile')), 'skin', 'resources', 'skins', 'Main', '720p', xml)
     with open(source, 'r') as s:
         data = s.read()
 
@@ -129,7 +129,7 @@ def init():
         except:
             util.ERROR()
 
-    return os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('profile')).decode('utf-8'), 'skin')
+    return os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('profile')), 'skin')
 
 
 def getSkinPath():
@@ -154,4 +154,4 @@ def getSkinPath():
 
     util.DEBUG_LOG('Using custom fonts for: {0}'.format(skin))
 
-    return os.path.join(xbmc.translatePath(util.ADDON.getAddonInfo('profile')).decode('utf-8'), 'skin')
+    return os.path.join(xbmcvfs.translatePath(util.ADDON.getAddonInfo('profile')), 'skin')

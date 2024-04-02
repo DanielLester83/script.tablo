@@ -1,5 +1,5 @@
 from lib import tablo
-import xbmcgui
+from . import xbmcgui
 
 
 def dialogFunction(f):
@@ -14,7 +14,7 @@ def tabloErrorHandler(f):
     def wrap(self, *args, **kwargs):
         try:
             return f(self, *args, **kwargs)
-        except tablo.APIError, e:
+        except(tablo.APIError, e):
             if e.code != 503:
                 raise
             xbmcgui.Dialog().ok('Unavailable', e.message.get('description', 'Unknown'))
