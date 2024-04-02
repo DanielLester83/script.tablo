@@ -1,5 +1,5 @@
 def LOG(msg):
-    print msg
+    print(msg)
 
 
 def DEBUG_LOG(msg):

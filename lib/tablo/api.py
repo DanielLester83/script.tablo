@@ -1,11 +1,11 @@
 import requests
 import m3u8
-import urlparse
-import compat
+from urllib.parse import urlparse
+from . import compat
 import pytz
 import traceback
 import json
-import discovery
+from . import discovery
 
 DISCOVERY_URL = 'https://api.tablotv.com/assocserver/getipinfo/'
 
@@ -82,7 +82,7 @@ class Watch(object):
             data = API(path).watch.post()
             self.error = None
             self.errorDisplay = ''
-        except APIError, e:
+        except(APIError, e):
             self.error = e.message.get('details', 'Unknown')
             self.errorDisplay = WATCH_ERROR_MESSAGES.get(self.error, WATCH_ERROR_MESSAGES.get(None))
 
@@ -409,7 +409,7 @@ class Show(object):
                     self._thumb = API.images(self.data['thumbnail_image']['image_id'])
                     self._thumbHasTitle = self.data['thumbnail_image']['has_title']
             except:
-                print self.data['thumbnail_image']
+                print(self.data['thumbnail_image'])
                 self._thumbHasTitle = False
         return self._thumb
 
@@ -436,8 +436,8 @@ class Show(object):
     def airings(self):
         try:
             return self._airings()
-        except APIError, e:
-            print 'Show.airings() failed: {0}'.format(e.message)
+        except(APIError, e):
+            print('Show.airings() failed: {0}'.format(e.message))
             return []
 
     def deleteAll(self, delete_protected=False):
@@ -460,8 +460,8 @@ class Series(Show):
     def seasons(self):
         try:
             return API(self.path).seasons.get()
-        except APIError, e:
-            print 'Series.seasons() failed: {0}'.format(e.message)
+        except(APIError, e):
+            print('Series.seasons() failed: {0}'.format(e.message))
             return []
 
     def _airings(self):
@@ -561,7 +561,7 @@ class TabloApi(Endpoint):
         try:
             info = self.server.info.get()
         except ConnectionError:
-            print 'TabloApi.getServerInfo(): Failed to connect'
+            print('TabloApi.getServerInfo(): Failed to connect')
             return False
         except:
             traceback.print_exc()
@@ -631,7 +631,7 @@ class TabloApi(Endpoint):
                 else:
                     return (state, None)
             return None
-        except APIError, e:
+        except(APIError, e):
             if self._hasUpdateStatus:
                 traceback.print_exc()
                 return ('error', None)
@@ -639,7 +639,7 @@ class TabloApi(Endpoint):
             if e.code == 404:
                 try:
                     self.server.tuners.get()
-                except APIError, e:
+                except(APIError, e):
                     if e.code == 503:
                         self._wasUpdating = True
                         return ('updating', None)

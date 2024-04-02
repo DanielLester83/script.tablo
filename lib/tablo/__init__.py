@@ -1,4 +1,4 @@
-import api
+from . import api
 
 API = api.API
 Show = api.Show

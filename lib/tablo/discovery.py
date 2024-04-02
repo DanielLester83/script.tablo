@@ -7,7 +7,7 @@ import datetime
 import requests
 
 # from lib import util
-import util
+from . import util
 
 DEVICE_DISCOVERY_PORT = 8881
 DEVICE_REPLY_PORT = 8882
@@ -16,7 +16,7 @@ ASSOCIATION_SERVER_DISCOVERY_URL = 'https://api.tablotv.com/assocserver/getipinf
 
 
 def truncZero(string):
-    return string.split('\0')[0]
+    return string.split(bytes('\0','UTF-8'))[0]
 
 
 class TabloDevice:
@@ -105,7 +105,7 @@ class Devices(object):
             self.associationServerDiscover()
 
     def discover(self, device=None):
-        import netif
+        from . import netif
         ifaces = netif.getInterfaces()
         sockets = []
         for i in ifaces:
@@ -117,7 +117,7 @@ class Devices(object):
             s.bind((i.ip, 0))
             s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
             sockets.append((s, i))
-        packet = struct.pack('>4s', 'BnGr')
+        packet = struct.pack('>4s', bytes('BnGr','UTF-8'))
         util.DEBUG_LOG('  o-> Broadcast Packet({0})'.format(binascii.hexlify(packet)))
 
         for attempt in (0, 1):
