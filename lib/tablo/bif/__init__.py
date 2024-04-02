@@ -1,1 +1,1 @@
-from bif import Bif
+from . import bif
